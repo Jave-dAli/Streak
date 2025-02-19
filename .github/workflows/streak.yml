@@ -1,0 +1,22 @@
+name: Daily Streak Commit
+
+on:
+  schedule:
+    - cron: "0 0 * * *"  # Runs every day at midnight UTC
+
+jobs:
+  commit:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        
+      - name: Update Streak File
+        run: |
+          echo "$(date) - Streak maintained 🚀" >> streak.txt
+          git config --global user.name "YOUR_USERNAME"
+          git config --global user.email "YOUR_EMAIL"
+          git add .
+          git commit -m "Automated commit to maintain streak"
+          git push
+
